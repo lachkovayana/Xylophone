@@ -16,10 +16,6 @@ body, html {
   justify-content: center;
 }
 
-#xylophone:focus{
-  border: none;
-}
-
 .bar {
   border: .4rem solid rgb(255, 238, 0);
   border-radius: .5rem;

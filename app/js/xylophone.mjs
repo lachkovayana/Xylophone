@@ -10,8 +10,15 @@ export function init(rootElement) {
     bar.addEventListener('click', () => toggleBarDisabledState(bar));
   })
 
-  root.addEventListener('keypress', (event) => onKeyPress(event));
+  document.addEventListener('keypress', (event) => onKeyPress(event));
 }
+
+// if we have several xylophones, play the one clicked on (their names must be xylophone + number)
+let xylophones = document.querySelectorAll('[id^="xylophone"]')
+xylophones.forEach((xyl) => {
+  xyl.addEventListener('click', () => { root = xyl; console.log("new root is ", xyl); });
+})
+
 
 function onBarMouseOver(bar) {
   if (isBarEnabled(bar))
@@ -42,6 +49,7 @@ function getNoteByBar(bar) {
 }
 
 function getBarByNote(note) {
+  console.log(root);
   return root.querySelector(`[data-note='${note}']`)
 }
 
