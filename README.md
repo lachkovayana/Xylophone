@@ -20,6 +20,3 @@ https://developer.mozilla.org/ru/docs/Web/HTML/Element/audio
 https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules
 
 https://learn.javascript.ru/introduction-browser-events
-
-
-<!-- trying to change smth -->

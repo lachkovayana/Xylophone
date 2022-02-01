@@ -9,15 +9,17 @@ export function init(rootElement) {
     bar.addEventListener('mouseover', () => onBarMouseOver(bar));
     bar.addEventListener('click', () => toggleBarDisabledState(bar));
   })
-
-  document.addEventListener('keypress', (event) => onKeyPress(event));
 }
 
-// if we have several xylophones, play the one clicked on (their names must be xylophone + number)
-let xylophones = document.querySelectorAll('[id^="xylophone"]')
-xylophones.forEach((xyl) => {
-  xyl.addEventListener('click', () => { root = xyl; console.log("new root is ", xyl); });
+// if we have several xylophones, when we press the keys, 
+// we play the xylophone that was last clicked 
+// (their names must be xylophone + number)
+const xylophones = document.querySelectorAll('[id^="xylophone"]')
+xylophones.forEach((xylophone) => {
+  xylophone.addEventListener('click', () => { root = xylophone });
 })
+
+document.addEventListener('keypress', (event) => onKeyPress(event));
 
 
 function onBarMouseOver(bar) {
@@ -27,7 +29,6 @@ function onBarMouseOver(bar) {
 
 function onKeyPress(event) {
   const keyCode = event.code;
-  console.log(keyCode);
   if (KEYS_TO_NOTES[keyCode]) {
     let bar = getBarByNote(KEYS_TO_NOTES[keyCode])
     if (isBarEnabled(bar))
@@ -36,8 +37,12 @@ function onKeyPress(event) {
 }
 
 function toggleBarDisabledState(bar) {
-  isBarEnabled(bar) ?
-    bar.classList.add("disabled") : bar.classList.remove("disabled")
+  if (isBarEnabled(bar)) {
+    bar.classList.add("disabled")
+    silenceBar(bar)
+  }
+  else
+    bar.classList.remove("disabled")
 }
 
 function isBarEnabled(bar) {
@@ -49,28 +54,28 @@ function getNoteByBar(bar) {
 }
 
 function getBarByNote(note) {
-  console.log(root);
   return root.querySelector(`[data-note='${note}']`)
 }
 
+function silenceBar(bar) {
+  const noteAudio = getNoteByBar(bar)
+  noteAudio.pause()
+  noteAudio.currentTime = 0
+}
 
 function hitBar(bar) {
   const noteAudio = getNoteByBar(bar)
   noteAudio.currentTime = 0
   noteAudio.play()
   bar.classList.add('active')
+
+  // make bar inactive after 200ms
   setTimeout(() => {
     bar.classList.remove('active')
   }, 200)
 
-
-  // make bar inactive after playing sound
+  // make bar inactive after completed playback
   // noteAudio.addEventListener('ended', () => {
   // bar.classList.remove('active')
   // })
 }
-
-
-// unused functions
-// function onBarClick(event) {}
-// function silenceBar(note) {}

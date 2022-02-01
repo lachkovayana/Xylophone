@@ -31,7 +31,8 @@ body, html {
 }
 
 .disabled {
-  background-color: rgb(134, 133, 133)!important;
+  background-color: rgb(206, 206, 206) !important;
+  border-color: #fff;
 }
 
 .active {
