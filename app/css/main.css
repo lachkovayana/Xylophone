@@ -3,7 +3,7 @@ html {
   background-color: #8f8987b0;
 }
 
-body,html {
+body, html {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -14,6 +14,10 @@ body,html {
   flex: 1;
   align-items: center;
   justify-content: center;
+}
+
+#xylophone:focus{
+  border: none;
 }
 
 .bar {
@@ -31,7 +35,11 @@ body,html {
 }
 
 .disabled {
-  
+  background-color: rgb(134, 133, 133)!important;
+}
+
+.active {
+  filter: brightness(0.5)
 }
 
 h1, h2 {
