@@ -1,5 +1,5 @@
 let root;
-const KEYS_TO_NOTES = { c: "C", d: "D", e: "E", f: "F", g: "G", a: "A", b: "B" };
+const KEYS_TO_NOTES = { KeyA: "A", KeyB: "B", KeyC: "C", KeyD: "D", KeyE: "E", KeyF: "F", KeyG: "G" };
 
 export function init(rootElement) {
   root = rootElement;
@@ -19,9 +19,10 @@ function onBarMouseOver(bar) {
 }
 
 function onKeyPress(event) {
-  const keyName = event.key;
-  if (KEYS_TO_NOTES[keyName]) {
-    let bar = getBarByNote(KEYS_TO_NOTES[keyName])
+  const keyCode = event.code;
+  console.log(keyCode);
+  if (KEYS_TO_NOTES[keyCode]) {
+    let bar = getBarByNote(KEYS_TO_NOTES[keyCode])
     if (isBarEnabled(bar))
       hitBar(bar)
   }
@@ -53,7 +54,7 @@ function hitBar(bar) {
   setTimeout(() => {
     bar.classList.remove('active')
   }, 200)
-  
+
 
   // make bar inactive after playing sound
   // noteAudio.addEventListener('ended', () => {
